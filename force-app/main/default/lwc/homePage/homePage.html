@@ -1,0 +1,28 @@
+<template>
+    <div lwc:if={isLoading}>
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+    </div>
+    <div  lwc:else class="slds-p-around_medium maindiv">
+        <div class="slds-card__body slds-card__body_inner">
+            <h1 class="slds-text-heading_large">{headerTitle}</h1>
+        </div>
+
+        <div class="slds-grid slds-wrap slds-gutters">
+            <div class="slds-col slds-size_1-of-3">
+
+                <div lwc:if={isAdmin}>
+                    <lightning-combobox class="slds-m-bottom_medium" label="Trainer" value={selectedTrainer} options={trainerOptions}  placeholder="All Trainers"
+                    onchange={handleTrainerChange}>
+                    </lightning-combobox>
+                </div>
+                
+                <c-date-picker ondatechange={handleDateChange}> </c-date-picker>
+                
+            </div>
+
+            <div class={datatableClass}>
+                <c-session-datatable selected-date={selectedDate} selected-trainer={trainerToSend}> </c-session-datatable>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,37 @@
+<template>
+    <div lwc:if={hasSessions}>
+         <div lwc:if={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+        
+        <div lwc:else class="slds-card slds-p-around_small datatable">
+            <lightning-datatable key-field="Id" data={sessions} columns={columns} onrowaction={handleRowAction}
+                hide-checkbox-column>
+            </lightning-datatable>
+        </div>
+    </div>
+
+    <div lwc:elseif={hasNotSessions}>
+         <div lwc:if={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+        <div lwc:else class="slds-card slds-p-around_medium datatable slds-text-align_center">
+            <lightning-icon icon-name="utility:resource_absence" size="large" class="slds-m-bottom_small">
+            </lightning-icon>
+            <p>There are no sessions scheduled for this date. </p>
+        </div>
+    </div>
+    <div lwc:else>
+        <div class="slds-card slds-p-around_medium datatable slds-text-align_center">
+            <lightning-icon icon-name="utility:date_input" size="large" class="slds-m-bottom_small">
+            </lightning-icon>
+            <p>Select a date to view your training session for that day.</p>
+        </div>
+    </div>
+
+    <div lwc:if={showModal}>
+        <c-custom-modal-form record-id={selectedRecordId} onclosemodal={closeModalHandler}>
+        </c-custom-modal-form>
+    </div>
+
+</template>
